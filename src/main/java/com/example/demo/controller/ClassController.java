@@ -69,15 +69,15 @@ public class ClassController {
 
 }
 
-//    public ResponseEntity<List<Classes>> findAll() {
-//        List<Classes> classes = iClasses.getAll();
-//        System.out.println("List class : ");
-//
-//        for (int i = 0; i < classes.size(); i++) {
-//            System.out.println(classes.get(i));
-//        }
-//        return new ResponseEntity<>(iClasses.findAll(), HttpStatus.OK);
-//    }
+    public ResponseEntity<List<Classes>> getAll() {
+        List<Classes> classes = iClasses.getAll();
+        System.out.println("List class : ");
+
+        for (int i = 0; i < classes.size(); i++) {
+            System.out.println(classes.get(i));
+        }
+        return new ResponseEntity<>(iClasses.findAll(), HttpStatus.OK);
+    }
 
 //    public Classes createClass() {
 //        System.out.println("Enter id");
