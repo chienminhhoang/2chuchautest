@@ -1,35 +1,27 @@
 package com.example.demo.service.implement;
-
-//import com.example.md6be.Repository.ClassRepository;
-//import com.example.md6be.model.Classes;
-//import com.example.md6be.model.Student;
-//import com.example.md6be.service.IClasses;
 import com.example.demo.Repository.ClassRepository;
 import com.example.demo.model.Classes;
 import com.example.demo.model.Student;
 import com.example.demo.service.IClasses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ClassService implements IClasses {
-
     @Autowired
-    ClassRepository classRepository;
+    private ClassRepository classRepository;
     @Override
     public Classes save(Classes classes) {
 
         return classRepository.save(classes);
     }
 
-
     @Override
     public void delete(Long id) {
         classRepository.deleteById(id);
-
     }
 
     @Override
@@ -57,14 +49,17 @@ public class ClassService implements IClasses {
         return classRepository.findAll();
     }
 
-
     @Override
     public Classes findClassesByName(String className) {
-        return classRepository.findClassesByName(className);
+        Classes classes = new Classes();
+//        return classRepository.findClassesByName(className);
+        return classes;
     }
 
     @Override
     public List<Student> findAllStudentFromClass(String name) {
-        return classRepository.findStudentByClass(name);
+        List<Student> students = new ArrayList<>();
+//        return classRepository.findStudentByClass(name);
+        return students;
     }
 }

@@ -2,13 +2,11 @@ package com.example.demo.service.implement;
 
 import com.example.demo.Repository.StudentRepository;
 import com.example.demo.model.Student;
-//import com.example.md6be.Repository.StudentRepository;
-//import com.example.md6be.model.Student;
-//import com.example.md6be.service.IStudent;
+import com.example.demo.model.Transcript;
 import com.example.demo.service.IStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +52,17 @@ StudentRepository studentRepository;
 
     @Override
     public List<Student> selectStudentFailed() {
-        return studentRepository.selectStudentFailed();
+        List<Student> students = new ArrayList<>();
+//        return studentRepository.selectStudentFailed();
+        return students;
+    }
+
+    public double totalPoint(List<Transcript> transcriptList) {
+        double total = 0;
+        for (Transcript transcript : transcriptList) {
+            total += transcript.getPoint();
+
+        }
+        return total;
     }
 }

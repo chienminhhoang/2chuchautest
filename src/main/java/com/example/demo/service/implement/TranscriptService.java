@@ -3,12 +3,10 @@ package com.example.demo.service.implement;
 import com.example.demo.Repository.TranscriptRepository;
 import com.example.demo.model.Transcript;
 import com.example.demo.service.ITranscript;
-//import com.example.md6be.Repository.TranscriptRepository;
-//import com.example.md6be.model.Transcript;
-//import com.example.md6be.service.ITranscript;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +52,7 @@ public class TranscriptService implements ITranscript {
 
     @Override
     public List<Transcript> selectTranscriptBySubjectAndClass(Long classId, Long subjectId) {
-        return transcriptRepository.selectTranscriptBySubjectAndClass(classId,subjectId);
+        //        return transcriptRepository.selectTranscriptBySubjectAndClass(classId,subjectId);
+        return new ArrayList<>();
     }
 }

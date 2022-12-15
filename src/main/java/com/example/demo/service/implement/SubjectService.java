@@ -52,6 +52,8 @@ public class SubjectService implements ISubject {
     }
     @Override
     public Subject findSubjectByName(String subjectName) {
-        return subjectRepository.findSubjectByName(subjectName);
+        Subject s = new Subject();
+//        return subjectRepository.findSubjectByName(subjectName);
+        return  s;
     }
 }

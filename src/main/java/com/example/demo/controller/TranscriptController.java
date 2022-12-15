@@ -27,7 +27,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @RestController
-@RequestMapping("/transcipt")
+@RequestMapping(value = "api/transcript")
 public class TranscriptController {
     @Autowired
     ITranscript transcriptService;
@@ -61,6 +61,7 @@ public class TranscriptController {
     public ResponseEntity<?> deleteTranscript(@PathVariable("id") Long id){
         Optional<Transcript> transcriptOptional = transcriptService.findById(id);
         if(transcriptOptional.isPresent()){
+            transcriptService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

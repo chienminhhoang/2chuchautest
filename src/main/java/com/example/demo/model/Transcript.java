@@ -15,36 +15,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"STUDENT_ID", "SUBJECT_ID"})})
-
 public class Transcript {
     @Id
-    @Column(name = "TRANSCIPT_ID", nullable = false)
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long transcriptId;
     private double point;
-
     @ManyToOne
-    @JoinColumn(name = "SUBJECT_ID")
-
     private Subject subject;
     @ManyToOne
-    @JoinColumn(name = "STUDENT_ID")
     private Student student;
-
-    public Transcript(double point) {
-        this.point = point;
-    }
-
-    @Override
-    public String toString() {
-        return "Transcript{" +
-                "transcriptId=" + transcriptId +
-                ", point=" + point +
-                ", subject=" + subject +
-                ", student=" + student +
-                '}';
-    }
 }

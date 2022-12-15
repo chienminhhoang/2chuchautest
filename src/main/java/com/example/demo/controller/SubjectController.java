@@ -2,11 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.service.implement.SubjectService;
 import com.example.demo.model.Subject;
-//import com.example.md6be.service.implement.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-@RequestMapping("/api/Subject")
+@RequestMapping(value = "/api/Subject")
 @RestController
 public class SubjectController {
 
@@ -44,6 +42,7 @@ public class SubjectController {
     public ResponseEntity<?> deleteSubject(@PathVariable("id") Long id){
         Optional<Subject> subjectOptional = subjectService.findById(id);
         if(subjectOptional.isPresent()){
+            subjectService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

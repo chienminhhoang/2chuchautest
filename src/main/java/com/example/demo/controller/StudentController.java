@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @RestController
-@RequestMapping(value = "/student")
+@RequestMapping(value = "api/student")
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -52,6 +52,7 @@ public class StudentController {
     public ResponseEntity<?> deleteClass(@PathVariable("id") Long id){
         Optional<Student> optionalStudent = studentService.findById(id);
         if(optionalStudent.isPresent()){
+            studentService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
