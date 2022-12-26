@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 @Entity
 @Getter
 @Setter
@@ -17,5 +20,8 @@ public class Semester {
     private Long semesterId;
     private String semesterName;
     private int numberOfSubjects;
-
+    @OneToMany
+    private List<Subject> subjects= new ArrayList<>();
+    @OneToMany
+    private List<Classes> classess = new ArrayList<>();
 }

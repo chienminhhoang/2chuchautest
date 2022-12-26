@@ -51,9 +51,7 @@ public class ClassService implements IClasses {
 
     @Override
     public Classes findClassesByName(String className) {
-        Classes classes = new Classes();
-//        return classRepository.findClassesByName(className);
-        return classes;
+        return classRepository.findClassesByName(className);
     }
 
     @Override

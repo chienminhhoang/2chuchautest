@@ -5,6 +5,7 @@ package com.example.demo.service;
 import com.example.demo.model.Semester;
 
 public interface ISemester extends ICRUD<Semester>{
+
     Semester findBySemesterName(String nameSemester);
 
 

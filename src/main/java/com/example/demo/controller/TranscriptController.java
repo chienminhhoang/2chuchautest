@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+
 @RestController
 @RequestMapping(value = "api/transcript")
 public class TranscriptController {
@@ -39,34 +40,57 @@ public class TranscriptController {
     IClasses iClasses;
 
     @GetMapping
-    public ResponseEntity<List<Transcript>> findAll() {
+    public ResponseEntity<List<Transcript>> findAllTranscript() {
         return new ResponseEntity<>(transcriptService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping("create-transcript")
+    @PostMapping("/create-transcript")
     public ResponseEntity<?> creatTranscript(@RequestBody Transcript transcript) {
         return new ResponseEntity<>(transcriptService.save(transcript), HttpStatus.CREATED);
     }
 
-    @PutMapping("update-transcript")
+    @PutMapping("/update-transcript")
     public ResponseEntity<?> updateTranscript(@RequestBody Transcript transcript) {
         Optional<Transcript> transcriptOptional = transcriptService.findById(transcript.getTranscriptId());
         if (transcriptOptional.isPresent()) {
-            return new ResponseEntity<>(transcriptService.save(transcript), HttpStatus.CREATED);
+            return new ResponseEntity<>(transcriptService.save(transcript), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
-    @DeleteMapping("delete-transcript/{id}")
-    public ResponseEntity<?> deleteTranscript(@PathVariable("id") Long id){
+
+    @DeleteMapping("/delete-transcript/{id}")
+    public ResponseEntity<?> deleteTranscript(@PathVariable("id") Long id) {
         Optional<Transcript> transcriptOptional = transcriptService.findById(id);
-        if(transcriptOptional.isPresent()){
+        if (transcriptOptional.isPresent()) {
             transcriptService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("{id}")
+    private ResponseEntity<?> getSemesterById(@PathVariable("id") Long id) {
+        Optional<Transcript> optionalTranscript = transcriptService.findById(id);
 
+        if (optionalTranscript.isPresent()) {
+            return new ResponseEntity<>(optionalTranscript.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
+    @GetMapping("/find-transcript/{idSubject}")
+    private ResponseEntity<List<Transcript>> findTranscriptBySubject(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(transcriptService.findTranscriptBySubject(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    private ResponseEntity<List<Transcript>> findTranscript(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(transcriptService.findTranscriptsBySubject_SubjectId(id), HttpStatus.OK);
+    }
+    @GetMapping("/findT/{id}")
+    ResponseEntity<List<Transcript>> findBySubject(@PathVariable("id") Long id){
+
+        return new ResponseEntity<>(transcriptService.findTranscriptsBySubject_id(id),HttpStatus.OK);
+    }
 }

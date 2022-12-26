@@ -18,9 +18,8 @@ public class SemesterService implements ISemester {
     }
 
     @Override
-    public void delete(Long id) {
-        semesterRepository.deleteById(id);
-
+    public void delete(Long semesterId) {
+        semesterRepository.deleteById(semesterId);
     }
 
     @Override
@@ -34,8 +33,8 @@ public class SemesterService implements ISemester {
     }
 
     @Override
-    public Optional<Semester> findById(Long id) {
-        return Optional.empty();
+    public Optional<Semester> findById(Long semesterId) {
+        return semesterRepository.findById(semesterId);
     }
 
     @Override

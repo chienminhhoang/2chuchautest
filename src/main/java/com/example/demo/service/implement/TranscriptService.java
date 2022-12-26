@@ -50,9 +50,38 @@ public class TranscriptService implements ITranscript {
         return transcriptRepository.findAll();
     }
 
+//    @Override
+//    public List<Transcript> selectTranscriptBySubjectAndClass(Long classId, Long subjectId) {
+////                return transcriptRepository.selectTranscriptBySubjectAndClass(classId,subjectId);
+//        return new ArrayList<>();
+//    }
+
     @Override
-    public List<Transcript> selectTranscriptBySubjectAndClass(Long classId, Long subjectId) {
-        //        return transcriptRepository.selectTranscriptBySubjectAndClass(classId,subjectId);
-        return new ArrayList<>();
+    public List<Transcript> findTranscriptBySubject(Long subjectId) {
+        return transcriptRepository.findTranscriptBySubject(subjectId);
     }
+
+    @Override
+    public List<Transcript> findTranscriptsBySubject_SubjectId(Long id) {
+        return transcriptRepository.findTranscriptsBySubject_SubjectId(id);
+    }
+
+    @Override
+    public List<Transcript> findTranscriptsBySubject_id(Long id) {
+         transcriptRepository.findTranscriptsBySubject_id(id);
+        return new ArrayList<>();
+
+    }
+
+    @Override
+    public Iterable<Transcript> findAllBySubject_Id(Long id) {
+        return transcriptRepository.findAllBySubject_SubjectId(id);
+    }
+
+    @Override
+    public List<Transcript> selectTranscriptBySubjectAndClass(long classesId, long subjectId) {
+        return transcriptRepository.selectTranscriptBySubjectAndClass(classesId,subjectId);
+    }
+
+
 }

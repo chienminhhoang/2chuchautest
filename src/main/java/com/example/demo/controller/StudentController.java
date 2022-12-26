@@ -1,38 +1,41 @@
 package com.example.demo.controller;
-
-import com.example.demo.model.Classes;
 import com.example.demo.model.Student;
-import com.example.demo.model.Subject;
-import com.example.demo.model.Transcript;
 import com.example.demo.service.IClasses;
+import com.example.demo.service.ISubject;
 import com.example.demo.service.implement.StudentService;
-import com.example.demo.service.implement.SubjectService;
 import com.example.demo.service.implement.TranscriptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
+
 
 @RestController
-@RequestMapping(value = "api/student")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping(value = "api/student/")
 public class StudentController {
     @Autowired
     private StudentService studentService;
     @Autowired
-    private IClasses classService;
+    TranscriptService transcriptService;
     @Autowired
-    private SubjectService subjectService;
+    IClasses iClasses;
     @Autowired
-    private TranscriptService transcriptService;
+    ISubject iSubject;
+
 
     @GetMapping
-    public ResponseEntity<List<Student>> findAll() {
-        return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Student>> findAllStudent() {
+        return new ResponseEntity<>(studentService.getAll(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("ListScholarShip")
+    private ResponseEntity<?> getListScholarship() {
+        return new ResponseEntity<>(studentService.ListScholarship(), HttpStatus.OK);
     }
 
     @PostMapping("create-student")
@@ -43,19 +46,30 @@ public class StudentController {
     @PutMapping("update-student")
     public ResponseEntity<?> updateStudent(@RequestBody Student student) {
         Optional<Student> optionalStudent = studentService.findById(student.getId());
-        if(optionalStudent.isPresent()){
-            return new ResponseEntity<>(studentService.save(student),HttpStatus.CREATED);
+        if (optionalStudent.isPresent()) {
+            return new ResponseEntity<>(studentService.save(student), HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @DeleteMapping("delete-student")
-    public ResponseEntity<?> deleteClass(@PathVariable("id") Long id){
+
+    @DeleteMapping("delete-student/{id}")
+    public ResponseEntity<?> deleteClass(@PathVariable("id") Long id) {
         Optional<Student> optionalStudent = studentService.findById(id);
-        if(optionalStudent.isPresent()){
+        if (optionalStudent.isPresent()) {
             studentService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("{id}")
+    private ResponseEntity getStudentById(@PathVariable("id") Long id) {
+        Optional<Student> optionalStudent = studentService.findById(id);
+
+        if (optionalStudent.isPresent()) {
+            return new ResponseEntity(optionalStudent.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 
@@ -136,22 +150,7 @@ public class StudentController {
 //        }
 //    }
 //
-////    public void findAll() {
-////        System.out.println("Enter classes");
-////        String nameClass = scanner.nextLine();
-////        Classes classes = classService.findClassesByName(nameClass);
-////        List<Student> list = null;
-////        list = classService.findAllStudentFromClass(nameClass);
-////        if (list.isEmpty()) {
-////            System.out.println("don't find class ");
-////
-////        }
-////        System.out.println("list student of class " + nameClass);
-////        for (int i = 0; i < list.size(); i++) {
-////            System.out.println(" Name : " + list.get(i).getName() + " age " + list.get(i).getAge() + " total " + list.get(i).totalPoint());
-////        }
-////
-////    }
+
 //
 //    public void getPointStudent() {
 //        System.out.println("Enter Name Subject want to see result");

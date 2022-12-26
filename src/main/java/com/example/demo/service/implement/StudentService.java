@@ -6,14 +6,17 @@ import com.example.demo.model.Transcript;
 import com.example.demo.service.IStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class StudentService implements IStudent {
-@Autowired
-StudentRepository studentRepository;
+    @Autowired
+    StudentRepository studentRepository;
+
+
     @Override
     public Student save(Student student) {
 
@@ -65,4 +68,16 @@ StudentRepository studentRepository;
         }
         return total;
     }
+
+    @Override
+    public List<?> ListScholarship() {
+        return studentRepository.ListScholarship();
+    }
+
+//    @Override
+//    public List<DTOStudent> getAllDTO() {
+//        return dtoStudentService.createDTOStudent();
+//    }
+
+
 }

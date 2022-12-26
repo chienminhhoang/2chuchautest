@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Student;
 import com.example.demo.service.implement.SubjectService;
 import com.example.demo.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 
 @RequestMapping(value = "/api/Subject")
 @RestController
@@ -20,30 +23,39 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @GetMapping
-    public ResponseEntity<List<Subject>> findAll() {
+    public ResponseEntity<List<Subject>> findAllSubject() {
         return new ResponseEntity<>(subjectService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping("create-subject")
+    @PostMapping("/create-subject")
     public ResponseEntity<?> creatSubject(@RequestBody Subject subject) {
         return new ResponseEntity<>(subjectService.save(subject), HttpStatus.CREATED);
     }
 
-    @PutMapping("update-Subject")
+    @PutMapping("/update-subject")
     public ResponseEntity<?> updateSubject(@RequestBody Subject subject) {
         Optional<Subject> subjectOptional = subjectService.findById(subject.getSubjectId());
         if (subjectOptional.isPresent()) {
-            return new ResponseEntity<>(subjectService.save(subject), HttpStatus.CREATED);
+            return new ResponseEntity<>(subjectService.save(subject), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
-    @DeleteMapping("delete-Subject/{id}")
-    public ResponseEntity<?> deleteSubject(@PathVariable("id") Long id){
-        Optional<Subject> subjectOptional = subjectService.findById(id);
+    @DeleteMapping("/delete-subject/{subjectId}")
+    public ResponseEntity<?> deleteSubject(@PathVariable("subjectId") Long subjectId){
+        Optional<Subject> subjectOptional = subjectService.findById(subjectId);
         if(subjectOptional.isPresent()){
-            subjectService.delete(id);
+            subjectService.delete(subjectId);
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/{id}")
+    private ResponseEntity<?> getStudentById(@PathVariable("id") Long id) {
+        Optional<Subject> optionalSubject = subjectService.findById(id);
+
+        if (optionalSubject.isPresent()) {
+            return new ResponseEntity<>(optionalSubject.get(),HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

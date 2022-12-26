@@ -6,7 +6,12 @@ import com.example.demo.model.Transcript;
 
 import java.util.List;
 
-public interface IStudent extends  ICRUD<Student>{
+public interface IStudent extends ICRUD<Student> {
     public List<Student> selectStudentFailed();
+
     double totalPoint(List<Transcript> transcriptList);
+
+    List<?> ListScholarship();
+
+
 }

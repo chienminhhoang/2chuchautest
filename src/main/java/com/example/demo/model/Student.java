@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
 
 @Entity
@@ -18,8 +19,8 @@ public class Student {
     private Long id;
     private String name;
     private int age;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Classes classes;
-
-
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Transcript> transcriptList;
 }

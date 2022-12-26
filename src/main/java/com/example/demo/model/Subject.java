@@ -16,7 +16,6 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subjectId;
-    @Column(unique = true)
     private String name;
     @ManyToOne
     private Semester semester;
